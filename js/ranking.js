@@ -78,6 +78,8 @@ function loadRanking() {
 
         var container = $('#rankingContent');
 
+    $('.thumb').click(function(){
+        var selector = $(this).attr('filter-attr');
         $(container).isotope({
             filter: '.'+currentType,
             animationOptions: {
@@ -177,7 +179,24 @@ function criaBoxCountry(index){
             $('.'+tipoCountry+'.'+pais.country).css('background',' url('+pais.img[indexTemp]+') center center')
         }
     }
+    $(box).css('background',' url('+bg+') center center');  
+    $(box).html('<main><h1><span>#</span>' +pais.country+ '</h1><h2>'+pais.img.length+' Fotos</h2></main>');
     
+    boxes.push(box);
+    
+    
+    for (var j=0; j<pais.img.length; j++) {
+        totalRanking=totalRanking+1;
+        if (j != 0){
+            var boxChildren = $('<a class="lightbox"></a>').attr("href", "#").addClass("thumb").addClass(pais.country);
+            $(boxChildren).attr('filter-attr', pais.country)
+            $(boxChildren).css('background',' url('+pais.img[j]+') center center'); 
+            boxes.push(boxChildren);    
+        }
+        
+    };
+
+    $(container).append(boxes);
 
 }
 
@@ -222,7 +241,23 @@ function criaBoxChallenge(index){
             
         }
     }
+    $(box).css('background',' url('+bg+') center center');  
+    $(box).html('<main><h1><span>#</span>' +challenge.name+ '</h1><h2>'+challenge.img.length+' Fotos</h2></main>');
     
+    boxes.push(box);
+
+    for (var j=0; j<challenge.img.length; j++) {
+        totalRanking=totalRanking+1;
+        if (j != 0){
+            var boxChildren = $('<a class="lightbox"></a>').attr("href", "#").addClass("thumb").addClass(challenge.name);
+            $(boxChildren).attr('filter-attr', challenge.name)
+            $(boxChildren).css('background',' url('+challenge.img[j]+') center center'); 
+            boxes.push(boxChildren);    
+        }
+        
+    };
+
+    $(container).append(boxes);
 
 }
 

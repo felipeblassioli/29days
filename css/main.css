@@ -95,6 +95,7 @@ h1, h2, h3, p, a {
 }
 
 .right {
+	font-size: .8em;
 	float: right;
 }
 
@@ -133,6 +134,7 @@ h1, h2, h3, p, a {
 }
 
 .thumb {
+	background: cover !important;
 	width: 30%;
 	float: left;
 	background: red;
@@ -229,7 +231,7 @@ h1, h2, h3, p, a {
 }
 
 .left,.right {
-	line-height: 2em;
+	line-height: 2.5em;
 	text-align: center;
 }
 
@@ -298,4 +300,12 @@ h1, h2, h3, p, a {
 	margin: auto;
 	opacity: 1;
 	background-repeat: no-repeat;
+}
+
+.twitter h1 {
+	display: none !important;
+}
+
+.lightbox:hover h1 {
+	display: block !important;
 }
