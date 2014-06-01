@@ -114,10 +114,10 @@ function criaBoxCountry(pais){
     for (var j=0; j<pais.img.length; j++) {
         totalRanking=totalRanking+1;
         if (j != 0){
-            var boxChildren = $('<a class="lightbox"></a>').attr("href", "#").addClass("thumb").addClass(pais.country);
+            var boxChildren = $('<a class="lightbox"><main class="twitter"><h1><i class="fa fa-retweet"></i>'+0+' <i class="fa fa-star"></i>'+0+'</h1></main></a>').attr("href", "#").addClass("thumb").addClass(pais.country);
             $(boxChildren).attr('filter-attr', pais.country)
             $(boxChildren).css('background',' url('+pais.img[j]+') center center'); 
-            boxes.push(boxChildren);    
+            boxes.push(boxChildren);
         }
         
     };
