@@ -1,0 +1,301 @@
+* {
+	margin: 0;
+	padding: 0;
+
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+}
+
+h1, h2, h3, p, a {
+	font: 1em/1em 'Open Sans';
+	color: #333;
+}
+
+.row {
+	width: 75%;
+	margin: 0 auto;
+	padding: 25px 0;
+}
+
+.header {
+	height: 75px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.header h1 {
+	line-height: 25px;
+	text-transform: uppercase;
+	color: #00b0ff;
+	font-size: 1.8em;
+	font-weight: 100;
+}
+
+.header h1 span {
+	border: 1px solid #00b0ff;
+	padding: 5px 7px;
+	color: #00b0ff;
+}
+
+.login {
+	width: 100px;
+	height: 35px;
+	background: none;
+	border: 1px solid #00b0ff;
+	border-radius: 3px;
+	color: #00b0ff;
+	cursor: pointer;
+	outline: none;
+	transition: .25s;
+}
+
+.login:hover {
+	background: #00b0ff;
+	color: #fff;
+	border-color: #009BE0;
+}
+
+.small-login {
+	margin-top: -16px;
+}
+
+.intro {
+	height: 500px;
+	background: url(img/bg.jpg) no-repeat center center fixed;
+	background-size: cover;
+	box-shadow: 0 0 0 #000, inset 0 0 10px #000;
+}
+
+.intro main h1 {
+	font-size: 7.5em;
+	text-align: center;
+	color: rgba(250, 250, 250, .45);
+	font-weight: 700;
+	text-transform: uppercase;
+	line-height: 425px;
+}
+
+.intro:hover main h1 {
+	text-shadow: 0 0 25px rgba(0, 0, 0, .75);
+	color: #fff;
+}
+
+.intro:hover main h1 span {
+	color: #fed231;
+}
+
+.thumb:hover main span {
+	color: #fed231;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.ranking h1 {
+	font-size: 3em;
+	color: #fff;
+}
+
+.owner h1 {
+	display: inline-block;
+	color: #fff;
+	text-decoration: underline;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+.user {
+	width: 40px;
+	border-radius: 50%;
+	vertical-align: middle;
+}
+
+.gallery {
+	text-align: center;
+}
+
+.gallery h1 {
+	font-size: 3em;
+	font-weight: 700;
+	line-height: 1.5em;
+}
+
+.gallery h2 {
+	font-size: 1.3em;
+	font-weight: 100;
+}
+
+.thumb {
+	width: 30%;
+	float: left;
+	background: red;
+	margin: 25 15px;
+	position: static !important;
+	height: 150px;
+	opacity: .9;
+}
+
+.thumb:hover {
+	opacity: 1;
+}
+
+.thumb h1 {
+	line-height: 55px;
+	font-size: 2em;
+	color: #fff;
+	text-shadow: 0 0 10px rgba(0, 0, 0, .5);
+	margin-top: 45px;
+}
+
+.thumb h2 {
+	color: #fff;
+	text-shadow: 0 0 10px rgba(0, 0, 0, .7);
+	display: none;
+	font-weight: 600;
+}
+
+.thumb:hover h2 {
+	display: block;
+}
+
+.ranking2 {
+	background: url(img/argentina.jpg) center center;
+	background-size: cover;
+}
+
+.ranking3 {
+	background: url(img/france.jpg) center center;
+	background-size: cover;
+}
+
+.ranking4 {
+	background: url(img/espanha.jpg) center center;
+	background-size: cover;
+}
+
+.more {
+	background: #efefef;
+	border: 1px solid #ccc;
+}
+
+.more:hover {
+	background: #dedede;
+}
+
+.more h1 {
+	color: #333;
+	font-size: 4em;
+	line-height: 125px;
+}
+
+.moreRanking {
+	display: none;	
+}
+
+.fixed {
+	height: 50px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 99999999999999;
+	background: rgba(250, 250, 250, .75);
+}
+
+.fixed:hover {
+	background: #fff;
+	}
+
+	.footer {
+		height: 50px;
+		background: #18191b;
+		text-align: center;
+		margin-top: 25px;
+	}
+
+	.clear {clear: both;}
+
+	.header .small {
+	line-height: 0;
+	font-size: 1em;
+}
+
+.left,.right {
+	line-height: 2em;
+	text-align: center;
+}
+
+.contact:hover {
+	text-decoration: underline;
+	color: #666;
+}
+
+.goTop {
+	display: none;
+	position: fixed;
+	bottom: 55px;
+	right: 35px;
+	width: 30px;
+	height: 30px;
+	color: #fff;
+	background: #18191b;
+	text-align: center;
+	opacity: .8;
+	transition: .2s;
+}
+
+.goTop:hover {
+	opacity: 1;
+}
+
+.goTop i {
+	line-height: 30px;
+}
+.count h1 {color: #fff; font-size: 1.5em; text-shadow: 0 0 10px rgba(0, 0, 0, .5); background: rgba(0, 0, 0, .5); padding: 5px 10px;}
+
+
+.isotope-item {
+    z-index: 2;
+}
+.isotope-hidden.isotope-item {
+    pointer-events: none;
+    z-index: 1;
+}
+.isotope,
+.isotope .isotope-item {
+  /* change duration value to whatever you like */
+
+    -webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+}
+.isotope {
+    -webkit-transition-property: height, width;
+    -moz-transition-property: height, width;
+    transition-property: height, width;
+}
+.isotope .isotope-item {
+    -webkit-transition-property: -webkit-transform, opacity;
+    -moz-transition-property: -moz-transform, opacity;
+    transition-property: transform, opacity;
+}
+
+.goLight {
+	width: 700px;
+	height: 500px;
+	position: absolute !important;
+	z-index: 999;
+	left: 0 !important;
+	right: 0;
+	margin: auto;
+	opacity: 1;
+	background-repeat: no-repeat;
+}

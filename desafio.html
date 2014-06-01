@@ -1,0 +1,107 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>Os 29</title>
+
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.css">
+
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+
+		<script src="js/jQuery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+		<script src="js/jquery.isotope.js" type="text/javascript"></script> 
+		<script src="js/ranking.js" type="text/javascript"></script>
+	</head>
+
+	<body onLoad="onLoadPage(tipoChallenge);">
+		<section class="header">
+			<div class="row">
+				<a href="index.html">
+					<h1 class="left"><span>29</span> days</h1>
+				</a>
+
+				<a href="index.html" class="right login">#RANKINGS</a>
+			</div>
+		</section>
+
+		<a href="#" class="cleanScreen">
+			<section class="intro">
+				<div class="row">
+					<main>
+						<h1><span>#</span>Brasil</h1>
+					</main>
+
+					<footer>
+						<div class="count left">
+							<h1>0 Fotos</h1>
+						</div>
+
+						<div class="owner right">
+							<a href="#">
+								<h1>Roberto Carlos</h1>
+								<img src="img/user.jpg" alt="" class="user">
+							</a>
+						</div>
+					</footer>
+				</div>
+			</section>
+		</a>
+
+		<a href="#" class="cleanScreen">Voltar</a>
+
+		<section class="gallery">
+			<h1>#Desafios</h1>
+			<h2>Veja o ranking de todos os torcedores do mundo inteiro.</h2>
+			<div id="rankingContent" class="row">
+				
+			</div>
+		</section>
+
+		<div class="clear"></div>
+
+		<section class="footer">
+			<div class="row">
+				<p class="left">© Hackathon 2014</p>
+				<a href="#" class="right contact">Contato</a>
+			</div>
+		</section>
+
+		<a href="#" class="goTop">
+			<i class="fa fa-angle-up"></i>
+		</a>
+
+		<script type="text/javascript">
+			$(window).bind('scroll', function() {
+	         	if ($(window).scrollTop() > 50) {
+		            $('.header').addClass('fixed');
+		            $('.header h1').addClass('small');
+		            $('.login').addClass('small-login');
+	         	}
+
+	         	else {
+	            	$('.header').removeClass('fixed');
+	            	$('.header h1').removeClass('small');
+	            	$('.login').removeClass('small-login');
+	        	}
+	    	});
+
+			$(document).ready(function() {
+				$(window).scroll(function() {
+					if ($(this).scrollTop() > 200) {
+						$('.gotop').fadeIn(200);
+					} else {
+						$('.gotop').fadeOut(200);
+					}
+				});
+
+				$('.gotop').click(function(event) {
+					event.preventDefault();
+
+					$('html, body').animate({scrollTop: 0}, 300);
+				})
+			});
+		</script>
+	</body>
