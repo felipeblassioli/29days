@@ -1,9 +1,12 @@
 var rankings = {};
+var rankingsOld = {}
 var tipoCountry = 'countryType';
 var tipoChallenge = 'challengeType';
 var imageOpened = null;
 var currentType;
 var totalRanking = 0;
+var firstRankingUpdated = false;
+var detailsOpened = false;
 
 
 function onLoadPage(type){
@@ -12,20 +15,48 @@ function onLoadPage(type){
     $('.cleanScreen').click(function(){
         var container = $('#rankingContent');
         $(container).isotope({filter: '.'+currentType});
+        detailsOpened = false;
+        startPooling();
         return false;
     });
 
     setTimeout(function(){
+        loadRankingRest()
+    }, 800);
+}
+
+
+function loadRankingRest(){
+    if (!detailsOpened){
         var success = function(data) {
+            if (rankingsOld == null){
+                rankingsOld = data;
+            }
+            else  {
+                rankingsOld = rankings;  
+            }
             rankings = data;
             loadRanking(currentType);
         }
         var fail = function(error) {
+            if (rankingsOld == null){
+                rankingsOld = data;
+            }
+            else  {
+                rankingsOld = rankings;  
+            }
             rankings = rankingsDefault;
             loadRanking(currentType);
         }
         getRankingImages(success, fail);
-    }, 800);
+    }
+    
+}
+
+function startPooling(){
+    setTimeout(function(){
+            loadRankingRest()
+    }, 4000);
 }
 
 function loadRanking() {
@@ -33,54 +64,68 @@ function loadRanking() {
 
     if (currentType == tipoCountry){
         for (var i=0; i<rankings.countries.length; i++) {
-            criaBoxCountry(rankings.countries[i]);  
+            criaBoxCountry(i); 
         }
     } else {
         for (var i=0; i<rankings.challenges.length; i++) {
-            criaBoxChallenge(rankings.challenges[i])
+            criaBoxChallenge(i)
         }
     }
 
-    var container = $('#rankingContent');
-
-    $(container).isotope({
-        filter: '.'+currentType,
-        animationOptions: {
-            duration: 750,
-            easing: 'linear',
-            queue: false
-        }
-    });
-
-    $('.thumb').click(function(){
-        var selector = $(this).attr('filter-attr');
-        $(container).isotope({
-            filter: '.'+selector
-            
-         });
-         return false;
-    });
-
-    $('.lightbox').click(function () {
-        if (imageOpened != null){
-            $(imageOpened).removeClass('goLight');
-            imageOpened = null;
-        }
-        imageOpened = $(this);
-        $(this).addClass('goLight');
-    });
-
-    $('body').click(function(){
-        if (imageOpened != null){
-            $(imageOpened).removeClass('goLight');
-            imageOpened = null;
-        }
+    if (!firstRankingUpdated){
+        firstRankingUpdated = true;
         
-    });
 
-    for (var i = 0; i < totalRanking; i++) {
-        updateTotalPhotos(i);
-        ;
+        var container = $('#rankingContent');
+
+        $(container).isotope({
+            filter: '.'+currentType,
+            animationOptions: {
+                duration: 750,
+                easing: 'linear',
+                queue: false
+            }
+        });
+
+        $('.thumb').click(function(){
+            var selector = $(this).attr('filter-attr');
+            $(container).isotope({
+                filter: '.'+selector
+                
+             });
+             detailsOpened = true;
+             return false;
+        });
+
+        $('.lightbox').click(function () {
+            zoomPhoto(this);
+        });
+
+        $('body').click(function(){
+            cleanZoomPhoto(this);
+        });
+
+        for (var i = 0; i < totalRanking; i++) {
+            updateTotalPhotos(i);
+        }
+        startPooling();
+    } else {
+        startPooling();
+    }
+}
+
+function zoomPhoto(photo){
+    if (imageOpened != null){
+        $(imageOpened).removeClass('goLight');
+        imageOpened = null;
+    }
+    imageOpened = $(photo);
+    $(photo).addClass('goLight');
+}
+function cleanZoomPhoto(photo){
+    if (imageOpened != null){
+        $(imageOpened).removeClass('goLight');
+        imageOpened = null;
     }
 }
 
@@ -89,72 +134,95 @@ function updateTotalPhotos(index){
         var contador = $('.count.left h1');
         var temp = totalRanking - totalRanking + index;
         contador.text(temp + ' Fotos');
-    }, index*2 + 100)
+    }, index*100 + 100)
     
 }
 
-function criaBoxCountry(pais){
+function criaBoxCountry(index){
     var container = $('#rankingContent');
     var boxes = [];
+    var pais = rankings.countries[index];
 
-    var box = $("<a></a>").attr("href", "#").addClass("thumb").addClass(tipoCountry).addClass(pais.country);
-    $(box).attr('filter-attr', pais.country)
-    var bg;
-    if (pais.img.length > 0){
-        bg = pais.img[0];
-    } else {
-        bg = 'css/img/argentina.jpg'
-    }
-    $(box).css('background',' url('+bg+') center center');  
-    $(box).html('<main><h1><span>#</span>' +pais.country+ '</h1><h2>'+pais.img.length+' Fotos</h2></main>');
-    
-    boxes.push(box);
-    
-    
-    for (var j=0; j<pais.img.length; j++) {
-        totalRanking=totalRanking+1;
-        if (j != 0){
-            var boxChildren = $('<a class="lightbox"></a>').attr("href", "#").addClass("thumb").addClass(pais.country);
-            $(boxChildren).attr('filter-attr', pais.country)
-            $(boxChildren).css('background',' url('+pais.img[j]+') center center'); 
-            boxes.push(boxChildren);    
+    if (!firstRankingUpdated){
+        var box = $("<a></a>").attr("href", "#").addClass("thumb").addClass(tipoCountry).addClass(pais.country);
+        $(box).attr('filter-attr', pais.country)
+        var bg;
+        if (pais.img.length > 0){
+            bg = pais.img[0];
+        } else {
+            bg = 'css/img/argentina.jpg'
         }
+        $(box).css('background',' url('+bg+') center center');  
+        $(box).html('<main><h1><span>#</span>' +pais.country+ '</h1><h2>'+pais.img.length+' Fotos</h2></main>');
         
-    };
+        boxes.push(box);
+        
+        for (var j=0; j<pais.img.length; j++) {
+            totalRanking=totalRanking+1;
+            if (j != 0){
+                var boxChildren = $('<a class="lightbox"></a>').attr("href", "#").addClass("thumb").addClass(pais.country);
+                $(boxChildren).css('background',' url('+pais.img[j]+') center center'); 
+                boxes.push(boxChildren);    
+            }
+            
+        };
 
-    $(container).append(boxes);
+        $(container).append(boxes);
+    } else {
+        if (pais.img.length > 0){
+            var indexTemp = 0;
+            if (pais.img.length == rankingsOld.countries[index].img.length){
+                indexTemp = Math.floor((Math.random() * pais.img.length));
+            }
+            $('.'+tipoCountry+'.'+pais.country).css('background',' url('+pais.img[indexTemp]+') center center')
+        }
+    }
+    
 
 }
 
-function criaBoxChallenge(challenge){
+function criaBoxChallenge(index){
     var container = $('#rankingContent');
     var boxes = [];
+    var challenge = rankings.challenges[index];
 
-    var box = $("<a></a>").attr("href", "#").addClass("thumb").addClass(tipoChallenge).addClass(challenge.name);
-    $(box).attr('filter-attr', challenge.name)
-    var bg;
-    if (challenge.img.length > 0){
-        bg = challenge.img[0];
-    } else {
-        bg = 'css/img/argentina.jpg'
-    }
-    $(box).css('background',' url('+bg+') center center');  
-    $(box).html('<main><h1><span>#</span>' +challenge.name+ '</h1><h2>'+challenge.img.length+' Fotos</h2></main>');
-    
-    boxes.push(box);
-
-    for (var j=0; j<challenge.img.length; j++) {
-        totalRanking=totalRanking+1;
-        if (j != 0){
-            var boxChildren = $('<a class="lightbox"></a>').attr("href", "#").addClass("thumb").addClass(challenge.name);
-            $(boxChildren).attr('filter-attr', challenge.name)
-            $(boxChildren).css('background',' url('+challenge.img[j]+') center center'); 
-            boxes.push(boxChildren);    
+    if (!firstRankingUpdated){
+        var box = $("<a></a>").attr("href", "#").addClass("thumb").addClass(tipoChallenge).addClass(challenge.name);
+        $(box).attr('filter-attr', challenge.name)
+        var bg;
+        if (challenge.img.length > 0){
+            bg = challenge.img[0];
+        } else {
+            bg = 'css/img/argentina.jpg'
         }
+        $(box).css('background',' url('+bg+') center center');  
+        $(box).html('<main><h1><span>#</span>' +challenge.name+ '</h1><h2>'+challenge.img.length+' Fotos</h2></main>');
         
-    };
+        boxes.push(box);
 
-    $(container).append(boxes);
+        for (var j=0; j<challenge.img.length; j++) {
+            totalRanking=totalRanking+1;
+            if (j != 0){
+                var boxChildren = $('<a class="lightbox"></a>').attr("href", "#").addClass("thumb").addClass(challenge.name);
+                $(boxChildren).attr('filter-attr', challenge.name)
+                $(boxChildren).css('background',' url('+challenge.img[j]+') center center'); 
+                boxes.push(boxChildren);    
+            }
+            
+        };
+
+        $(container).append(boxes);
+    } else {
+        if (challenge.img.length > 0){
+            var indexTemp = 0;
+            if (challenge.img.length == rankingsOld.challenges[index].img.length){
+                var indexTemp = Math.floor((Math.random() * challenge.img.length));
+            }
+            $('.'+tipoChallenge+'.'+challenge.name).css('background',' url('+challenge.img[indexTemp]+') center center')    
+            
+        }
+    }
+    
 
 }
 
